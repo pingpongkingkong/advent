@@ -1,14 +1,2 @@
 import re, itertools
-def sorter(x,y):
-	presort = cmp(y[1], x[1])
-	return presort if presort != 0 else cmp(x[0], y[0])
-
-t = 0
-for line in open('input.txt').readlines():
-	r,s,c0 = re.match(r'^(.*)-(\d+)\[(\w+)\]$', line).groups()
-	sorts = sorted( map( lambda x: (x[0], len(list(x[1]))), itertools.groupby( sorted(list(r.replace('-',''))), ord) ), cmp=sorter)
-	c1 = ''.join(map(chr, zip(*sorts[:5])[0]))
-
-	if c1 == c0:
-		t += int(s)
-print t
+print reduce(lambda x,y: x+int(y[0]) if y[1]==y[2] else x, [ (match[1], match[2], ''.join(map(lambda x: chr(x[0]), sorted(map(lambda group: (group[0],len(list(group[1]))), itertools.groupby(sorted(list(match[0].replace('-',''))),ord)), cmp=lambda y,z: cmp(z[1],y[1]) if cmp(z[1],y[1]) != 0 else cmp(y[0],z[0]) ))[:5])) for match in (re.match(r'^(.*)-(\d+)\[(\w+)\]$', line).groups() for line in open('input.txt'))], 0)

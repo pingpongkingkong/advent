@@ -1,23 +1,14 @@
-from itertools import groupby
-import re
+import re, itertools
 def sorter(x,y):
-	presort = -cmp(x[1], y[1])
+	presort = cmp(y[1], x[1])
 	return presort if presort != 0 else cmp(x[0], y[0])
 
-sum = 0
+t = 0
 for line in open('input.txt').readlines():
-	match = re.match(r'^(.*) - (\d+) \[ (\w+) \]$', line, re.VERBOSE)
-	if not match:
-		print 'BAD INPUT: ', line
-		exit(1)
+	r,s,c0 = re.match(r'^(.*)-(\d+)\[(\w+)\]$', line).groups()
+	sorts = sorted( map( lambda x: (x[0], len(list(x[1]))), itertools.groupby( sorted(list(r.replace('-',''))), ord) ), cmp=sorter)
+	c1 = ''.join(map(chr, zip(*sorts[:5])[0]))
 
-	roomname  = match.group(1).replace('-','')
-	sector    = int(match.group(2))
-	checksum  = match.group(3)
-
-	sorts     = sorted( map( lambda x: (x[0], len(list(x[1]))), groupby( sorted(list(roomname)), lambda x: ord(x)) ), cmp=sorter)
-	top5      = ''.join(map(lambda x: chr(x), zip(*sorts[:5])[0]))
-
-	if top5 == checksum:
-		sum += sector
-print sum
+	if c1 == c0:
+		t += int(s)
+print t

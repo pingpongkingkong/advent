@@ -9,10 +9,10 @@ while found < 8:
 	m.update('%s%i' % (hash,x))
 	out = m.hexdigest()
 	if out.startswith('00000'):
-		pos = list(out)[5]
+		pos = out[5]
 		if pos in '01234567':
 			if code[int(pos)] == None:
 				found += 1
-				code[int(pos)] = list(out)[6]
+				code[int(pos)] = out[6]
 	x += 1
 print ''.join(code)

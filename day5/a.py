@@ -8,6 +8,6 @@ while len(code) < 8:
 	m.update('%s%i' % (hash,x))
 	out = m.hexdigest()
 	if out.startswith('00000'):
-		code.append( list(out)[5] )
+		code.append( out[5] )
 	x += 1
 print ''.join(code)

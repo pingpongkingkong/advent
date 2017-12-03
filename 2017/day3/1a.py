@@ -1,5 +1,3 @@
-code = 361527
-
 def numberToRing(i):
 	count = 0
 
@@ -34,6 +32,8 @@ def getXOffset(i, ringDim):
 		x = i % rectQuart
 		y = rectQuart
 	return x,y
+
+code = 361527
 
 ring, start, end = numberToRing(code)
 ringDim    = 1 + (ring * 2)

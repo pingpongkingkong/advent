@@ -20,7 +20,7 @@ dstr = ['up','right','down','left']
 
 for burst in range(10000):
 	print 'coor',ix,iy
-	indx = '%i,%i' % (ix,iy)	
+	indx = '%i,%i' % (ix,iy)
 	# Check infected
 	inf = g.get(indx, '.')
 	if inf == '#':
@@ -38,4 +38,4 @@ for burst in range(10000):
 	ix += xchange
 	iy += ychange
 
-print infect	
+print infect
